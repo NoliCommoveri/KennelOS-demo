@@ -16,6 +16,7 @@ import { WIZARD_STEPS } from '../data/editionTour.js';
 import { getSampleDataManifest } from '../data/settings.js';
 import { clearSampleData } from '../data/sampleData.js';
 import { showKennelSetupModal } from './kennelSetupUI.js';
+import { onboardCard, BACKUP_INSTALL_HTML } from './onboardingUI.js';
 import { alertModal, esc } from './ui.js';
 
 function rootPrefix() {
@@ -127,12 +128,17 @@ const CLOSING_MESSAGE = 'And that’s it! You now know how to use KennelOS to ma
   'you love using the app!';
 
 // Finishing the tour mirrors the "I'll explore" onboarding ending: acknowledge,
-// clear the Thornfield seed (clearSampleData only removes the seeded records), and
-// hand off to the kennel-setup modal — exactly what the closing copy promises.
+// clear the Thornfield seed (clearSampleData only removes the seeded records), show
+// the same backups/install reminder the "I'll explore" path shows, and hand off to
+// the kennel-setup modal — exactly what the closing copy promises.
 async function finishTour() {
   teardown();
   await alertModal({ title: 'Tour complete', message: CLOSING_MESSAGE, okLabel: 'Set up my kennel →' });
   try { await clearSampleData(); } catch { /* leave the seed in place if the clear fails */ }
+  await onboardCard({
+    bodyHtml: BACKUP_INSTALL_HTML,
+    buttons: [{ label: 'Got it!', value: 'ok', primary: true }]
+  });
   await showKennelSetupModal({ skippable: true });
 }
 
