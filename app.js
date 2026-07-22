@@ -59,12 +59,16 @@ async function ensureDemoSeed() {
 }
 
 // A persistent "this is a read-only demo" strip at the top of every page, so a
-// blocked write is expected, not a surprise. Rendered only in the demo build.
+// blocked write is expected, not a surprise — plus a "Get Pro Now" CTA, since
+// this strip is the one element every demo visitor sees on every page. Rendered
+// only in the demo build.
 function renderDemoBanner() {
   const bar = document.createElement('div');
   bar.className = 'demo-banner';
   bar.setAttribute('role', 'status');
-  bar.innerHTML = "🔒 <strong>Demo</strong> — a read-only tour with sample data. Changes aren't saved.";
+  bar.innerHTML = `
+    <p class="demo-banner-text">🔒 <strong>Demo</strong> — a read-only view of KennelOS <strong>Pro</strong> with sample data. Changes aren't saved.</p>
+    <a class="demo-banner-cta" href="https://pro.kennelos.app" target="_blank" rel="noopener">Get Pro Now →</a>`;
   document.body.insertBefore(bar, document.body.firstChild);
 }
 
