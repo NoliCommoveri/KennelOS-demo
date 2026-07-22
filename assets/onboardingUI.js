@@ -2,9 +2,7 @@
 // (empty, no-choice-yet) install: a non-dismissible Welcome card, a tour offer,
 // and — for anyone who declines the tour — a backups/install card that hands off
 // to the kennel-setup ("New Kennel") modal. Sits at the shell level next to
-// sampleDataUI.js / kennelSetupUI.js; app.js's boot is the only caller of
-// runFirstRunOnboarding(). onboardCard() and BACKUP_INSTALL_HTML are also exported
-// for wizardUI.js, which shows the same backups/install card at the end of the tour.
+// sampleDataUI.js / kennelSetupUI.js; app.js's boot is the only caller.
 //
 // The two branches:
 //   "Show me around!"  → seed the Thornfield sample data, start the guided tour,
@@ -18,9 +16,8 @@ import { showKennelSetupModal } from './kennelSetupUI.js';
 
 // A single onboarding card: a dimmed, non-dismissible overlay (no backdrop close,
 // no X — the only way onward is a button) with body HTML and one or more buttons.
-// Resolves the clicked button's `value`. Exported so wizardUI.js can reuse it (and
-// BACKUP_INSTALL_HTML below) for the tour's own end-of-tour backup/install card.
-export function onboardCard({ bodyHtml, buttons }) {
+// Resolves the clicked button's `value`.
+function onboardCard({ bodyHtml, buttons }) {
   return new Promise((resolve) => {
     const overlay = document.createElement('div');
     overlay.className = 'onboard-overlay';
@@ -58,7 +55,7 @@ const TOUR_OFFER_HTML = `
   features that make KennelOS such a powerful tool. It takes just a couple of minutes, and you can
   leave it at any time.</p>`;
 
-export const BACKUP_INSTALL_HTML = `
+const BACKUP_INSTALL_HTML = `
   <h2 class="onboard-title">A quick note on backups</h2>
   <p>Because your data lives only in this browser, <strong>it’s yours to safeguard.</strong> Get in the
   habit of backing up regularly: open <strong>Import / Export</strong> and export a JSON backup. Keep it
