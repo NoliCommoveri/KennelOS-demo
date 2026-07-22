@@ -10,11 +10,16 @@
 // People, Reports, Documents, Companion), so they come from editionConfig and
 // this renderer stays edition-agnostic. Aliased to the original names to keep
 // the rest of this file unchanged.
-import { navItems as NAV_ITEMS, moreItems as MORE_ITEMS } from './data/editionConfig.js';
+import { navItems as NAV_ITEMS, moreItems as MORE_ITEMS, edition } from './data/editionConfig.js';
 // Lite's outbound "See the full app ↗" / "Upgrade to Pro →" links live at the
 // foot of the More menu (and on Today). Edition-agnostic: no-ops in Pro/Demo,
 // where hasEditionLinks() is false (editions plan §"In-Lite links to Demo/Pro").
 import { hasEditionLinks, editionLinksHtml, wireEditionLinks } from './assets/editionLinks.js';
+
+// Pro and Lite show their edition name right in the brand so it's obvious which
+// one you're in at a glance; Demo already has its own banner for that (app.js's
+// renderDemoBanner), so it's left off here.
+const EDITION_LABELS = { lite: 'Lite', pro: 'Pro' };
 
 // Pages live one directory deep (/pages/*.html); index.html sits at the app root.
 // Links are stored app-root-relative and prefixed at render time so they resolve
@@ -64,9 +69,11 @@ export function renderNav(targetId = 'app-nav') {
   // add nothing (hasEditionLinks() false).
   const editionExtra = hasEditionLinks() ? editionLinksHtml({ variant: 'nav' }) : '';
 
+  const editionLabel = EDITION_LABELS[edition] || '';
+
   host.innerHTML = `
     <nav class="nav-inner">
-      <a class="nav-brand" href="${prefix}index.html"><span class="paw">🐾</span> KennelOS</a>
+      <a class="nav-brand" href="${prefix}index.html"><span class="paw">🐾</span> KennelOS${editionLabel ? `<span class="nav-edition"> ${editionLabel}</span>` : ''}</a>
       <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
       <div class="nav-links">
         ${links}
