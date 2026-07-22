@@ -59,6 +59,7 @@ body {
   gap: 8px;
 }
 .nav-brand .paw { font-size: 18px; }
+.nav-edition { font-weight: 500; color: #d7e6de; }
 .nav-kennel { font-weight: 500; color: #d7e6de; margin-left: 2px; }
 .nav-link {
   color: #d7e6de;
