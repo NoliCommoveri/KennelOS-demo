@@ -23,8 +23,6 @@ export const PRO_ONLY_PAGES = [
   'litter-finances-report.html', 'placements-report.html', 'stud-services-report.html',
   // Companion share-out
   'companion.html',
-  // Furever seed-link generator
-  'furever.html',
   // Documents + file storage
   'documents.html',
   // Invoice / receipt generation (print doc)
