@@ -66,6 +66,7 @@ export const editionFlags = {
   externalOwnership: true,
   assistant: true,
   feedingSchedule: true,
+  shows: true,             // Show tracking (Show Tracking Spec §7)
   // Multi-kennel scope — on, since Demo showcases the whole Pro app.
   multiKennel: true,
 };
@@ -85,6 +86,7 @@ export const navItems = [
 // direct URL 404s just like a Pro-only page does in Lite.
 export const moreItems = [
   { label: 'Reports',       path: 'pages/reports.html' },
+  { label: 'Shows',         path: 'pages/shows.html' },
   { label: 'Documents',     path: 'pages/documents.html' },
   { label: 'Companion',     path: 'pages/companion.html' },
   { label: 'Furever',       path: 'pages/furever.html' },
